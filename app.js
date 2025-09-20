@@ -32,7 +32,7 @@ main()
 
 app.get("/" , (req,res)=>
 {
-    res.send("Hi, I AM ROOT")
+    res.render("listings/home.ejs");
 })
 
 // app.get("/testListing", async (req,res)=>

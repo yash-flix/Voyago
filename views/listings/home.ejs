@@ -1,0 +1,366 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    min-height: 100vh;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  #globe-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .content-overlay {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .voyago-title {
+    font-size: 6rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffffff 0%, #22d3ee 30%, #06b6d4 70%, #ffffff 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 60px rgba(34, 211, 238, 0.5);
+    letter-spacing: -2px;
+    animation: titleGlow 4s ease-in-out infinite alternate;
+  }
+
+  .subtitle {
+    font-size: 1.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    line-height: 1.4;
+    font-weight: 300;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #22d3ee, #06b6d4);
+    color: white;
+    padding: 1.25rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(34, 211, 238, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(34, 211, 238, 0.6);
+    color: white;
+    text-decoration: none;
+    scale: 1.05;
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1.25rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-5px);
+    color: white;
+    text-decoration: none;
+    scale: 1.05;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes titleGlow {
+    0% {
+      text-shadow: 0 0 60px rgba(34, 211, 238, 0.5);
+    }
+    100% {
+      text-shadow: 0 0 80px rgba(34, 211, 238, 0.8), 0 0 120px rgba(34, 211, 238, 0.3);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-container {
+      padding: 1rem;
+    }
+
+    .voyago-title {
+      font-size: 4rem;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-primary, .btn-secondary {
+      width: 100%;
+      max-width: 280px;
+      padding: 1rem 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .voyago-title {
+      font-size: 3rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+<body>
+  <div class="hero-container">
+    
+    <div id="globe-container"></div>
+
+    
+    <div class="content-overlay">
+      <h1 class="voyago-title">VOYAGO</h1>
+      <p class="subtitle">
+        Discover extraordinary destinations.<br>
+        Create unforgettable memories.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="/listings" class="btn-primary">Explore Listings</a>
+        <a href="/listings/new" class="btn-secondary">List Your Property</a>
+      </div>
+
+      <p class="tagline">Your perfect escape awaits</p>
+    </div>
+  </div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    let scene, camera, renderer, globe, globeGroup, markers = [];
+    let mouseX = 0, mouseY = 0;
+    let targetRotationX = 0, targetRotationY = 0;
+
+    function init() {
+      
+      scene = new THREE.Scene();
+      
+      
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(200, 50, 600);
+      
+      
+      const container = document.getElementById('globe-container');
+      renderer = new THREE.WebGLRenderer({ 
+        alpha: true, 
+        antialias: true 
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+      container.appendChild(renderer.domElement);
+      
+      
+      globeGroup = new THREE.Group();
+      scene.add(globeGroup);
+      
+      createGlobe();
+      createMarkers();
+      
+      
+      document.addEventListener('mousemove', onMouseMove, false);
+      
+      animate();
+    }
+
+    function createGlobe() {
+     
+      const radius = 180;
+      const widthSegments = 50;
+      const heightSegments = 50;
+      
+      const geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
+      
+      
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x777A80,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.6
+      });
+      
+      globe = new THREE.Mesh(geometry, material);
+      globeGroup.add(globe);
+      
+     
+      const glowGeometry = new THREE.SphereGeometry(radius + 8, 32, 32);
+      const glowMaterial = new THREE.MeshBasicMaterial({
+        color: 0x22d3ee,
+        transparent: true,
+        opacity: 0.1,
+        side: THREE.BackSide
+      });
+      
+      const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+      globeGroup.add(glow);
+
+      
+      const outerGlowGeometry = new THREE.SphereGeometry(radius + 15, 32, 32);
+      const outerGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0x50505A,
+        transparent: true,
+        opacity: 0.05,
+        side: THREE.BackSide
+      });
+      
+      const outerGlow = new THREE.Mesh(outerGlowGeometry, outerGlowMaterial);
+      globeGroup.add(outerGlow);
+    }
+
+    function createMarkers() {
+      const markerPositions = [
+        { lat: 40.7128, lng: -74.0060 }, // New York
+        { lat: 51.5074, lng: -0.1278 },  // London
+        { lat: 35.6762, lng: 139.6503 }, // Tokyo
+        { lat: -33.8688, lng: 151.2093 }, // Sydney
+        { lat: 19.4326, lng: -99.1332 }, // Mexico City
+        { lat: 55.7558, lng: 37.6176 },  // Moscow
+        { lat: -1.2921, lng: 36.8219 },  // Nairobi
+        { lat: -23.5505, lng: -46.6333 }, // São Paulo
+        { lat: 28.6139, lng: 77.2090 },  // Delhi
+        { lat: 1.3521, lng: 103.8198 },  // Singapore
+      ];
+      
+      markerPositions.forEach(pos => {
+        const marker = createMarker(pos.lat, pos.lng);
+        globeGroup.add(marker);
+        markers.push(marker);
+      });
+    }
+
+    function createMarker(lat, lng) {
+      const radius = 180;
+      
+     
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lng + 180) * (Math.PI / 180);
+      
+      const x = -((radius + 2) * Math.sin(phi) * Math.cos(theta));
+      const z = ((radius + 2) * Math.sin(phi) * Math.sin(theta));
+      const y = ((radius + 2) * Math.cos(phi));
+      
+      
+      const markerGeometry = new THREE.SphereGeometry(3, 8, 8);
+      const markerMaterial = new THREE.MeshBasicMaterial({
+        color: 0x22d3ee,
+        transparent: true,
+        opacity: 1
+      });
+      
+      const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+      marker.position.set(x, y, z);
+      
+      return marker;
+    }
+
+    function onMouseMove(event) {
+      mouseX = (event.clientX - window.innerWidth / 2) * 0.0003;
+      mouseY = (event.clientY - window.innerHeight / 2) * 0.0003;
+      
+      targetRotationY = mouseX;
+      targetRotationX = mouseY;
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      
+      globeGroup.rotation.y += (targetRotationY - globeGroup.rotation.y) * 0.05;
+      globeGroup.rotation.x += (targetRotationX - globeGroup.rotation.x) * 0.05;
+      
+      
+      globeGroup.rotation.y += 0.001;
+      
+     
+      markers.forEach((marker, index) => {
+        const time = Date.now() * 0.001;
+        const scale = 1 + Math.sin(time * 1.5 + index) * 0.4;
+        marker.scale.setScalar(scale);
+      });
+      
+      renderer.render(scene, camera);
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    window.addEventListener('resize', onWindowResize, false);
+
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
