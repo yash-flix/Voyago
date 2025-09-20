@@ -1,21 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voyago</title>
-</head>
+<% layout("/layouts/boilerplate.ejs") %>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 50%, #dbeafe 100%);
+    min-height: 100vh;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+  }
+
+  .form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #1f2937;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #fafafa;
+    box-sizing: border-box;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    background: white;
+  }
+
+  textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #059669, #047857);
+    color: white;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .submit-btn:hover {
+    background: linear-gradient(135deg, #047857, #065f46);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .form-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .page-header {
+      font-size: 1.75rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 <body>
-     <h2>Edit  Listing</h2>
-    <form method="POST" action="/listings/<%= listing._id%>?_method=PUT"  >
-        <input name="listing[title]" value="<%= listing.title %>"  type="text"><br> <br/>
-        <textarea name="listing[description]"><%= listing.description %></textarea>
-      <br /><br />
-        <input name="listing[Image]" value="<%= listing.image %>" type="text"><br><br/>
-        <input name="listing[price]" value="<%= listing.price %>" type="number"><br><br/>
-        <input name="listing[location]" value="<%= listing.location %>"  ><br><br/>
-        <input name="listing[country]" value="<%= listing.country %>" type="text"><br><br/>
-        <button>Edit</button>
+  <div class="form-container">
+    <h2 class="page-header">Edit Listing</h2>
+    
+    <form method="POST" action="/listings/<%= listing._id%>?_method=PUT">
+      <div class="form-group">
+        <label for="title" class="form-label">Property Title</label>
+        <input 
+          id="title"
+          name="listing[title]" 
+          value="<%= listing.title %>"
+          type="text" 
+          class="form-control"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <textarea 
+          id="description"
+          name="listing[description]" 
+          class="form-control"
+          required><%= listing.description %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="image" class="form-label">Image URL</label>
+        <input 
+          id="image"
+          name="listing[image]" 
+          value="<%= listing.image %>"
+          type="url" 
+          class="form-control"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="price" class="form-label">Price per Night (₹)</label>
+        <input 
+          id="price"
+          name="listing[price]" 
+          value="<%= listing.price %>"
+          type="number" 
+          min="1"
+          class="form-control"
+          required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="location" class="form-label">Location</label>
+          <input 
+            id="location"
+            name="listing[location]" 
+            value="<%= listing.location %>"
+            type="text"
+            class="form-control"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="country" class="form-label">Country</label>
+          <input 
+            id="country"
+            name="listing[country]" 
+            value="<%= listing.country %>"
+            type="text"
+            class="form-control"
+            required>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Update Listing</button>
     </form>
+  </div>
 </body>
-</html>
