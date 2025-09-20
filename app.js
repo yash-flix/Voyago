@@ -28,13 +28,7 @@ main()
 {
     console.log(err);
 })
-// In your route that renders the listings
-app.get("/testing", async (req, res) => {
-    const allListings = await Listing.find({});
-    console.log("First listing:", allListings[0]); // Debug: see the actual structure
-    console.log("Image property:", allListings[0]?.image); // Debug: see the image property
-    res.render("listings/index.ejs", { allListings });
-});
+
 
 app.get("/" , (req,res)=>
 {
