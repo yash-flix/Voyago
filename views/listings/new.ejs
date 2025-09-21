@@ -112,16 +112,18 @@
   <div class="form-container">
     <h2 class="page-header">Create a New Listing</h2>
     
-    <form method="POST" action="/listings">
+    <form method="POST" action="/listings" novalidate class="needs-validation">
       <div class="form-group">
         <label for="title" class="form-label">Property Title</label>
         <input 
+        
           id="title"
           name="listing[title]" 
           placeholder="Enter a catchy title for your property" 
           type="text" 
           class="form-control"
           required>
+          <div class="valid-feedback">Title looks good!</div>
       </div>
 
       <div class="form-group">
@@ -132,6 +134,7 @@
           placeholder="Describe your property, amenities, and what makes it special..." 
           class="form-control"
           required></textarea>
+           <div class="invalid-feedback">Please enter a short description</div>
       </div>
 
       <div class="form-group">
@@ -151,10 +154,11 @@
           id="price"
           name="listing[price]" 
           placeholder="2000" 
-          type="number" 
+          
           min="1"
           class="form-control"
           required>
+           <div class="invalid-feedback">Price should be valid</div>
       </div>
 
       <div class="form-row">
@@ -167,6 +171,7 @@
             type="text"
             class="form-control"
             required>
+            <div class="invalid-feedback">Location should be valid</div>
         </div>
 
         <div class="form-group">
@@ -178,6 +183,7 @@
             type="text"
             class="form-control"
             required>
+            <div class="invalid-feedback">Country name should be valid</div>
         </div>
       </div>
 
