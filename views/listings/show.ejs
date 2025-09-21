@@ -1,5 +1,7 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
 <style>
   body {
     background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 50%, #dbeafe 100%);
@@ -202,11 +204,25 @@
   .btn-danger:hover {
     background: #e53e3e;
   }
+
   hr {
-  border: none;        
-  height: 2px;         
-  background-color: #000; 
-}
+    border: none;        
+    height: 2px;         
+    background-color: #e2e8f0; 
+  }
+
+  /* Map Styles */
+  .map-section {
+    margin-top: 2rem;
+  }
+
+  #map {
+    height: 350px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
 
   @media (max-width: 768px) {
     .listing-gallery {
@@ -235,16 +251,18 @@
     .container {
       padding: 1rem;
     }
+
+    #map {
+      height: 250px;
+    }
   }
 </style>
 
 <body>
-    
   <div class="container">
-     <h1 class="listing-title">Listing Details:</h1>
+    <h1 class="listing-title">Listing Details:</h1>
     <div class="listing-header">
       <div class="listing-gallery">
-       
         <img src="<%= listing.image %>" class="main-image" alt="<%= listing.title %>">
         <div class="side-image-1">Additional Photo</div>
         <div class="side-image-2">Additional Photo</div>
@@ -284,10 +302,14 @@
                 <path d="M3 4a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 14.846 4.632 16 6.414 16H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 6H6.28l-.31-1.243A1 1 0 005 4H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
               </svg>
               <span>Prime location</span>
-              
             </div>
           </div>
-          <hr>
+        </div>
+
+        <!-- Map Section -->
+        <div class="section map-section">
+          <h2 class="section-title">Location</h2>
+          <div id="map"></div>
         </div>
       </div>
 
@@ -315,4 +337,74 @@
       </div>
     </div>
   </div>
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    // Location mapping for different cities/countries
+    function getCoordinates(location, country) {
+      const locationMap = {
+        'Malibu': [34.0259, -118.7798],
+        'New York City': [40.7589, -73.9851],
+        'Aspen': [39.1911, -106.8175],
+        'Florence': [43.7696, 11.2558],
+        'Portland': [45.5152, -122.6784],
+        'Cancun': [21.1619, -86.8515],
+        'Lake Tahoe': [39.0968, -120.0324],
+        'Los Angeles': [34.0522, -118.2437],
+        'Verbier': [46.0964, 7.2281],
+        'Serengeti National Park': [-2.3333, 34.8333],
+        'Amsterdam': [52.3676, 4.9041],
+        'Fiji': [-17.7134, 178.0650],
+        'Cotswolds': [51.8330, -1.8433],
+        'Boston': [42.3601, -71.0589],
+        'Bali': [-8.3405, 115.0920],
+        'Banff': [51.4968, -115.9281],
+        'Miami': [25.7617, -80.1918],
+        'Phuket': [7.8804, 98.3923],
+        'Scottish Highlands': [57.0000, -4.0000],
+        'Dubai': [25.2048, 55.2708],
+        'Montana': [47.0527, -109.6333],
+        'Mykonos': [37.4467, 25.3289],
+        'Costa Rica': [9.7489, -83.7534],
+        'Charleston': [32.7765, -79.9311],
+        'Tokyo': [35.6762, 139.6503],
+        'New Hampshire': [43.4525, -71.5639],
+        'Maldives': [3.2028, 73.2207]
+      };
+
+      return locationMap['<%= listing.location %>'] || [20.5937, 78.9629]; // Default to India center
+    }
+
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        try {
+          const coordinates = getCoordinates('<%= listing.location %>', '<%= listing.country %>');
+          
+          // Initialize map
+          const map = L.map('map').setView(coordinates, 13);
+
+          // Add tile layer
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18
+          }).addTo(map);
+
+          // Add marker for the listing
+          const marker = L.marker(coordinates).addTo(map);
+          marker.bindPopup(`
+            <div style="text-align: center; font-family: 'Plus Jakarta Sans', sans-serif;">
+              <b style="color: #1a202c; font-size: 14px;"><%= listing.title %></b><br>
+              <span style="color: #718096; font-size: 12px;"><%= listing.location %>, <%= listing.country %></span><br>
+              <span style="color: #4299e1; font-weight: bold; font-size: 13px;">₹<%= listing.price.toLocaleString("en-IN") %>/night</span>
+            </div>
+          `).openPopup();
+
+          console.log('Map initialized successfully for <%= listing.location %>');
+        } catch (error) {
+          console.error('Map initialization error:', error);
+        }
+      }, 500);
+    });
+  </script>
 </body>
