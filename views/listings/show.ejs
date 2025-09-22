@@ -253,6 +253,43 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(245, 101, 101, 0.4);
   }
+  /* delete btn styles */
+  
+.review-delete-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(248, 113, 113, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(248, 113, 113, 0.1);
+}
+
+.review-delete-btn:hover {
+  background: rgba(248, 113, 113, 0.2);
+  border-color: rgba(248, 113, 113, 0.5);
+  color: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(248, 113, 113, 0.2);
+}
+
+.review-delete-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(248, 113, 113, 0.2);
+}
+
+
+.review-item {
+  position: relative;
+}
+
   
  /* Review styles */
  .review-form {
@@ -261,7 +298,7 @@
     border-radius: 10px;
     padding: 1rem 1.25rem;
     margin: 2rem auto;
-    max-width: 500px;   /* smaller, centered box */
+    max-width: 500px;   
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
   }
 
@@ -323,6 +360,131 @@
     transform: translateY(-1px);
     box-shadow: 0 3px 8px rgba(66, 153, 225, 0.25);
   }
+  /* Reviews Section Styling */
+.reviews-section {
+  margin-top: 3rem;
+}
+
+.reviews-header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.reviews-header::before {
+  content: "⭐";
+  font-size: 1.25rem;
+}
+
+.reviews-list {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  list-style: none;
+  margin: 0;
+}
+
+.review-item {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(226, 232, 240, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.review-item:last-child {
+  margin-bottom: 0;
+}
+
+.review-item:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+.review-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4299e1, #3182ce, #2c5282);
+  border-radius: 12px 12px 0 0;
+}
+
+.review-content {
+  color: #4a5568;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.review-rating::before {
+  content: "Rating: ";
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.rating-stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.no-reviews {
+  text-align: center;
+  color: #4a5568;
+  font-style: italic;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .reviews-header {
+    font-size: 1.25rem;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .reviews-list {
+    padding: 1.5rem;
+  }
+
+  .review-item {
+    padding: 1.25rem;
+  }
+}
+
 
 
   /* Map Styles */
@@ -391,6 +553,8 @@
       <h1 class="listing-title"><%= listing.title %></h1>
       <p class="listing-subtitle"><%= listing.location %>, <%= listing.country %></p>
     </div>
+    </div>
+  
 
     <div class="content-grid">
       <div class="main-content">
@@ -469,21 +633,53 @@
       </div> 
     </div>
     <hr>
-   <div class="review-form">
+ <div class="review-form">
   <h4>Leave a Review</h4>
-  <form action="/listings/<%=listing.id%>/reviews" method="POST">
+  <form action="/listings/<%=listing.id%>/reviews" method="POST" novalidate class="needs-validation">
     <div class="mb-3 mt-3">
       <label for="rating">Rating</label>
       <input type="range" min="1" max="5" id="rating" name="review[rating]">
     </div>
     <div class="mb-3 mt-3">
       <label for="comment">Comments</label>
-      <textarea name="review[comment]" id="comment" rows="5"></textarea>
+      <textarea name="review[comment]" id="comment" rows="5" required></textarea>
+      <div class="invalid-feedback">Please add some comments for review</div>
     </div>
     <button type="submit">Add Review</button>
   </form>
 </div>
+<div class="reviews-section">
+  <h4 class="reviews-header">All Reviews</h4>
+  
+  <% if (listing.reviews && listing.reviews.length > 0) { %>
+    <ul class="reviews-list">
+      <% for(review of listing.reviews) { %>
+        <li class="review-item"><h5>Jan Doe</h5>
+          <div class="review-content"><%=review.comment %></div>
+          <div class="review-rating">
+            <span class="rating-stars">
+              <% for(let i = 1; i <= 5; i++) { %>
+                <% if(i <= review.rating) { %>⭐<% } else { %>☆<% } %>
+              <% } %>
+            </span>
+            (<%=review.rating %>/5)
+          </div>
+   <form style="position: absolute; top: 1rem; right: 1rem; margin: 0;" method="POST" action="/listings/<%=listing._id%>/reviews/<%= review._id%>?_method=DELETE ">
+            <button type="submit" class="review-delete-btn">Delete</button>
+          </form>
+        </li>
+      <% } %>
+    </ul>
+  <% } else { %>
+    <div class="no-reviews">
+      <p>No reviews yet. Be the first to leave a review!</p>
+    </div>
+  <% } %>
+</div>
+
+
   </div>
+
 
   <!-- Leaflet JavaScript -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
