@@ -10,6 +10,8 @@
     font-optical-sizing: auto;
     font-weight: 400;
     color: #2d3748;
+    margin: 0;
+    padding: 0;
   }
 
   .container {
@@ -20,49 +22,39 @@
 
   .listing-header {
     margin-bottom: 3rem;
+    text-align: center;
   }
 
-  .listing-gallery {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 300px 150px;
-    gap: 12px;
-    border-radius: 12px;
+  .listing-image-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    border-radius: 16px;
     overflow: hidden;
-    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   }
 
   .main-image {
-    grid-row: 1 / 3;
     width: 100%;
-    height: 100%;
+    height: 400px;
     object-fit: cover;
-  }
-
-  .side-image-1, .side-image-2 {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background: #e2e8f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #a0aec0;
-    font-size: 0.9rem;
+    display: block;
   }
 
   .listing-title {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 2.5rem;
+    font-weight: 700;
     color: #1a202c;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.3;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   .listing-subtitle {
-    color: #718096;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    color: #4a5568;
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
   }
 
   .content-grid {
@@ -75,49 +67,73 @@
   .main-content {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .section {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .section:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   }
 
   .section-title {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-weight: 600;
-    margin-bottom: 1rem;
-    color: #2d3748;
+    margin-bottom: 1.25rem;
+    color: #1a202c;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-icon {
+    width: 24px;
+    height: 24px;
+    color: #4299e1;
   }
 
   .description {
-    line-height: 1.6;
+    line-height: 1.7;
     color: #4a5568;
     font-size: 1rem;
   }
 
   .amenities-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
   }
 
   .amenity-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .amenity-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
   }
 
   .amenity-icon {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     color: #4299e1;
+    flex-shrink: 0;
+  }
+
+  .amenity-text {
+    font-weight: 500;
+    color: #2d3748;
   }
 
   .sidebar {
@@ -126,114 +142,205 @@
   }
 
   .booking-card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   }
 
   .price-display {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 1.5rem;
     color: #1a202c;
+    text-align: center;
   }
 
   .price-unit {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #718096;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #4a5568;
   }
 
   .location-info {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
     color: #4a5568;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 1rem;
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 12px;
   }
 
   .action-buttons {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
   }
 
   .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.95rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
     text-decoration: none;
     text-align: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     border: none;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn:hover:before {
+    left: 100%;
   }
 
   .btn-primary {
-    background: #4299e1;
+    background: linear-gradient(135deg, #4299e1, #3182ce);
     color: white;
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
   }
 
   .btn-primary:hover {
-    background: #3182ce;
+    background: linear-gradient(135deg, #3182ce, #2c5282);
     color: white;
     text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
   }
 
   .btn-secondary {
-    background: white;
+    background: rgba(255, 255, 255, 0.8);
     color: #4a5568;
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    backdrop-filter: blur(10px);
   }
 
   .btn-secondary:hover {
-    background: #f7fafc;
+    background: rgba(255, 255, 255, 0.95);
     text-decoration: none;
     color: #4a5568;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .btn-danger {
-    background: #f56565;
+    background: linear-gradient(135deg, #f56565, #e53e3e);
     color: white;
+    box-shadow: 0 4px 12px rgba(245, 101, 101, 0.3);
   }
 
   .btn-danger:hover {
-    background: #e53e3e;
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 101, 101, 0.4);
+  }
+  
+ /* Review styles */
+ .review-form {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 2rem auto;
+    max-width: 500px;   /* smaller, centered box */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
   }
 
-  hr {
-    border: none;        
-    height: 2px;         
-    background-color: #e2e8f0; 
+  .review-form h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    text-align: center;
   }
+
+  .review-form label {
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+    display: block;
+    color: #4a5568;
+    font-size: 0.9rem;
+  }
+
+  .review-form input[type="range"] {
+    width: 100%;
+    accent-color: #4299e1;
+    margin-bottom: 1rem;
+  }
+
+  .review-form textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    resize: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .review-form textarea:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+    outline: none;
+  }
+
+  .review-form button {
+    margin-top: 0.8rem;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: #4299e1;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.25s ease;
+  }
+
+  .review-form button:hover {
+    background: #2b6cb0;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(66, 153, 225, 0.25);
+  }
+
 
   /* Map Styles */
-  .map-section {
-    margin-top: 2rem;
-  }
-
   #map {
-    height: 350px;
+    height: 400px;
     width: 100%;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    border: 1px solid rgba(226, 232, 240, 0.3);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   }
 
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(226, 232, 240, 0.6), transparent);
+    margin: 2rem 0;
+  }
+
   @media (max-width: 768px) {
-    .listing-gallery {
-      grid-template-columns: 1fr;
-      grid-template-rows: 250px;
-    }
-
-    .side-image-1, .side-image-2 {
-      display: none;
-    }
-
     .content-grid {
       grid-template-columns: 1fr;
       gap: 2rem;
@@ -245,70 +352,95 @@
     }
 
     .listing-title {
-      font-size: 1.75rem;
+      font-size: 2rem;
     }
 
     .container {
       padding: 1rem;
     }
 
+    .main-image {
+      height: 300px;
+    }
+
     #map {
-      height: 250px;
+      height: 300px;
+    }
+
+    .amenities-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section {
+      padding: 1.5rem;
+    }
+
+    .booking-card {
+      padding: 1.5rem;
     }
   }
 </style>
 
 <body>
   <div class="container">
-    <h1 class="listing-title">Listing Details:</h1>
     <div class="listing-header">
-      <div class="listing-gallery">
+      <div class="listing-image-container">
         <img src="<%= listing.image %>" class="main-image" alt="<%= listing.title %>">
-        <div class="side-image-1">Additional Photo</div>
-        <div class="side-image-2">Additional Photo</div>
       </div>
       
       <h1 class="listing-title"><%= listing.title %></h1>
       <p class="listing-subtitle"><%= listing.location %>, <%= listing.country %></p>
     </div>
-    <hr>
 
     <div class="content-grid">
       <div class="main-content">
         <div class="section">
-          <h2 class="section-title">About this place</h2>
+          <h2 class="section-title">
+            <svg class="section-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-6a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+            </svg>
+            About this place
+          </h2>
           <p class="description"><%= listing.description %></p>
         </div>
-        <hr> 
 
         <div class="section">
-          <h2 class="section-title">What this place offers</h2>
+          <h2 class="section-title">
+            <svg class="section-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 4a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm8 0a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1h-4a1 1 0 01-1-1V8z" clip-rule="evenodd"/>
+            </svg>
+            What this place offers
+          </h2>
           <div class="amenities-grid">
             <div class="amenity-item">
               <svg class="amenity-icon" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
                 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
               </svg>
-              <span>Great views</span>
+              <span class="amenity-text">Great views</span>
             </div>
             <div class="amenity-item">
               <svg class="amenity-icon" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 4a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm8 0a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1h-4a1 1 0 01-1-1V8z" clip-rule="evenodd"/>
               </svg>
-              <span>Modern amenities</span>
+              <span class="amenity-text">Modern amenities</span>
             </div>
             <div class="amenity-item">
               <svg class="amenity-icon" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M3 4a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 14.846 4.632 16 6.414 16H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 6H6.28l-.31-1.243A1 1 0 005 4H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
               </svg>
-              <span>Prime location</span>
+              <span class="amenity-text">Prime location</span>
             </div>
           </div>
         </div>
 
-        <!-- Map Section -->
-        <div class="section map-section">
-          <h2 class="section-title">Location</h2>
+        <div class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+            Location
+          </h2>
           <div id="map"></div>
         </div>
       </div>
@@ -320,7 +452,7 @@
           </div>
           
           <div class="location-info">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
             </svg>
             <span><%= listing.location %>, <%= listing.country %></span>
@@ -334,8 +466,23 @@
             </form>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
+    <hr>
+   <div class="review-form">
+  <h4>Leave a Review</h4>
+  <form action="/listings/<%=listing.id%>/reviews" method="POST">
+    <div class="mb-3 mt-3">
+      <label for="rating">Rating</label>
+      <input type="range" min="1" max="5" id="rating" name="review[rating]">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="comment">Comments</label>
+      <textarea name="review[comment]" id="comment" rows="5"></textarea>
+    </div>
+    <button type="submit">Add Review</button>
+  </form>
+</div>
   </div>
 
   <!-- Leaflet JavaScript -->
@@ -372,102 +519,88 @@
         'New Hampshire': [43.4525, -71.5639],
         'Maldives': [3.2028, 73.2207],
         'Las Vegas': [36.1699, -115.1398],
-    'San Francisco': [37.7749, -122.4194],
-    'Chicago': [41.8781, -87.6298],
-    'Seattle': [47.6062, -122.3321],
-    'Nashville': [36.1627, -86.7816],
-    'New Orleans': [29.9511, -90.0715],
-    'Orlando': [28.5383, -81.3792],
-    'Denver': [39.7392, -104.9903],
-    'Austin': [30.2672, -97.7431],
-    'Phoenix': [33.4484, -112.0740],
-    'San Diego': [32.7157, -117.1611],
-    'Hawaii': [21.3099, -157.8581],
-    'Napa Valley': [38.2975, -122.2869],
-    'Big Sur': [36.2704, -121.8081],
-
-    // Europe
-    'Paris': [48.8566, 2.3522],
-    'London': [51.5074, -0.1278],
-    'Rome': [41.9028, 12.4964],
-    'Barcelona': [41.3851, 2.1734],
-    'Prague': [50.0755, 14.4378],
-    'Vienna': [48.2082, 16.3738],
-    'Berlin': [52.5200, 13.4050],
-    'Madrid': [40.4168, -3.7038],
-    'Venice': [45.4408, 12.3155],
-    'Santorini': [36.3932, 25.4615],
-    'Istanbul': [41.0082, 28.9784],
-    'Athens': [37.9755, 23.7348],
-    'Lisbon': [38.7223, -9.1393],
-    'Stockholm': [59.3293, 18.0686],
-    'Copenhagen': [55.6761, 12.5683],
-    'Munich': [48.1351, 11.5820],
-    'Swiss Alps': [46.5197, 9.7934],
-    'Monaco': [43.7384, 7.4246],
-
-    // Asia
-    'Bangkok': [13.7563, 100.5018],
-    'Singapore': [1.3521, 103.8198],
-    'Hong Kong': [22.3193, 114.1694],
-    'Seoul': [37.5665, 126.9780],
-    'Mumbai': [19.0760, 72.8777],
-    'Delhi': [28.6139, 77.2090],
-    'Goa': [15.2993, 74.1240],
-    'Kyoto': [35.0116, 135.7681],
-    'Osaka': [34.6937, 135.5023],
-    'Beijing': [39.9042, 116.4074],
-    'Shanghai': [31.2304, 121.4737],
-    'Kuala Lumpur': [3.1390, 101.6869],
-    'Jakarta': [6.2088, 106.8456],
-    'Manila': [14.5995, 120.9842],
-    'Hanoi': [21.0285, 105.8542],
-    'Ho Chi Minh City': [10.8231, 106.6297],
-
-    // Middle East & Africa
-    'Cairo': [30.0444, 31.2357],
-    'Cape Town': [33.9249, 18.4241],
-    'Marrakech': [31.6295, -7.9811],
-    'Tel Aviv': [32.0853, 34.7818],
-    'Doha': [25.2767, 51.5200],
-    'Abu Dhabi': [24.2539, 54.3773],
-    'Riyadh': [24.7136, 46.6753],
-    'Casablanca': [33.5731, -7.5898],
-    'Johannesburg': [-26.2041, 28.0473],
-    'Nairobi': [-1.2921, 36.8219],
-
-    // Australia & Oceania
-    'Sydney': [-33.8688, 151.2093],
-    'Melbourne': [-37.8136, 144.9631],
-    'Perth': [-31.9505, 115.8605],
-    'Brisbane': [-27.4698, 153.0251],
-    'Auckland': [-36.8485, 174.7633],
-    'Wellington': [-41.2924, 174.7787],
-
-    // South America
-    'Rio de Janeiro': [-22.9068, -43.1729],
-    'Buenos Aires': [-34.6037, -58.3816],
-    'Santiago': [-33.4489, -70.6693],
-    'Lima': [-12.0464, -77.0428],
-    'Cartagena': [10.3910, -75.4794],
-    'Cusco': [-13.5319, -71.9675],
-    'Bogota': [4.7110, -74.0721],
-
-    // Canada
-    'Toronto': [43.6532, -79.3832],
-    'Vancouver': [49.2827, -123.1207],
-    'Montreal': [45.5017, -73.5673],
-    'Quebec City': [46.8139, -71.2080],
-    'Calgary': [51.0447, -114.0719],
-    'Ottawa': [45.4215, -75.6972],
-
-    // Popular beach/island destinations
-    'Bahamas': [25.0343, -77.3963],
-    'Barbados': [13.1939, -59.5432],
-    'Jamaica': [18.1096, -77.2975],
-    'Aruba': [12.5211, -69.9683],
-    'Seychelles': [-4.6796, 55.4920],
-    'Mauritius': [-20.3484, 57.5522]
+        'San Francisco': [37.7749, -122.4194],
+        'Chicago': [41.8781, -87.6298],
+        'Seattle': [47.6062, -122.3321],
+        'Nashville': [36.1627, -86.7816],
+        'New Orleans': [29.9511, -90.0715],
+        'Orlando': [28.5383, -81.3792],
+        'Denver': [39.7392, -104.9903],
+        'Austin': [30.2672, -97.7431],
+        'Phoenix': [33.4484, -112.0740],
+        'San Diego': [32.7157, -117.1611],
+        'Hawaii': [21.3099, -157.8581],
+        'Napa Valley': [38.2975, -122.2869],
+        'Big Sur': [36.2704, -121.8081],
+        'Paris': [48.8566, 2.3522],
+        'London': [51.5074, -0.1278],
+        'Rome': [41.9028, 12.4964],
+        'Barcelona': [41.3851, 2.1734],
+        'Prague': [50.0755, 14.4378],
+        'Vienna': [48.2082, 16.3738],
+        'Berlin': [52.5200, 13.4050],
+        'Madrid': [40.4168, -3.7038],
+        'Venice': [45.4408, 12.3155],
+        'Santorini': [36.3932, 25.4615],
+        'Istanbul': [41.0082, 28.9784],
+        'Athens': [37.9755, 23.7348],
+        'Lisbon': [38.7223, -9.1393],
+        'Stockholm': [59.3293, 18.0686],
+        'Copenhagen': [55.6761, 12.5683],
+        'Munich': [48.1351, 11.5820],
+        'Swiss Alps': [46.5197, 9.7934],
+        'Monaco': [43.7384, 7.4246],
+        'Bangkok': [13.7563, 100.5018],
+        'Singapore': [1.3521, 103.8198],
+        'Hong Kong': [22.3193, 114.1694],
+        'Seoul': [37.5665, 126.9780],
+        'Mumbai': [19.0760, 72.8777],
+        'Delhi': [28.6139, 77.2090],
+        'Goa': [15.2993, 74.1240],
+        'Kyoto': [35.0116, 135.7681],
+        'Osaka': [34.6937, 135.5023],
+        'Beijing': [39.9042, 116.4074],
+        'Shanghai': [31.2304, 121.4737],
+        'Kuala Lumpur': [3.1390, 101.6869],
+        'Jakarta': [6.2088, 106.8456],
+        'Manila': [14.5995, 120.9842],
+        'Hanoi': [21.0285, 105.8542],
+        'Ho Chi Minh City': [10.8231, 106.6297],
+        'Cairo': [30.0444, 31.2357],
+        'Cape Town': [33.9249, 18.4241],
+        'Marrakech': [31.6295, -7.9811],
+        'Tel Aviv': [32.0853, 34.7818],
+        'Doha': [25.2767, 51.5200],
+        'Abu Dhabi': [24.2539, 54.3773],
+        'Riyadh': [24.7136, 46.6753],
+        'Casablanca': [33.5731, -7.5898],
+        'Johannesburg': [-26.2041, 28.0473],
+        'Nairobi': [-1.2921, 36.8219],
+        'Sydney': [-33.8688, 151.2093],
+        'Melbourne': [-37.8136, 144.9631],
+        'Perth': [-31.9505, 115.8605],
+        'Brisbane': [-27.4698, 153.0251],
+        'Auckland': [-36.8485, 174.7633],
+        'Wellington': [-41.2924, 174.7787],
+        'Rio de Janeiro': [-22.9068, -43.1729],
+        'Buenos Aires': [-34.6037, -58.3816],
+        'Santiago': [-33.4489, -70.6693],
+        'Lima': [-12.0464, -77.0428],
+        'Cartagena': [10.3910, -75.4794],
+        'Cusco': [-13.5319, -71.9675],
+        'Bogota': [4.7110, -74.0721],
+        'Toronto': [43.6532, -79.3832],
+        'Vancouver': [49.2827, -123.1207],
+        'Montreal': [45.5017, -73.5673],
+        'Quebec City': [46.8139, -71.2080],
+        'Calgary': [51.0447, -114.0719],
+        'Ottawa': [45.4215, -75.6972],
+        'Bahamas': [25.0343, -77.3963],
+        'Barbados': [13.1939, -59.5432],
+        'Jamaica': [18.1096, -77.2975],
+        'Aruba': [12.5211, -69.9683],
+        'Seychelles': [-4.6796, 55.4920],
+        'Mauritius': [-20.3484, 57.5522]
       };
 
       return locationMap['<%= listing.location %>'] || [20.5937, 78.9629]; // Default to India center
