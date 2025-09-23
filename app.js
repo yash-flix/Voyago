@@ -2,16 +2,13 @@ const express = require('express');
 const mongoose = require("mongoose");
 const app = express();
 const path = require('path');
-const Listing = require("./models/listing.js");
 const methodOverride = require('method-override');
 const ejsMate = require("ejs-mate");
-const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const {lisitngSchema, listingSchema , reviewSchema} = require("./schema.js")
-const Review = require("./models/review.js");
 
 
-// This must be BEFORE your routes
+
+
 app.use(methodOverride('_method'));
  
 const MONGO_URL = "mongodb://127.0.0.1:27017/Voyago";
@@ -25,6 +22,9 @@ app.use(methodOverride("_method"));
 app.engine("ejs" , ejsMate);
 
 const listings = require("./routes/listing.js")
+const reviews = require("./routes/review.js")
+
+
 async function main()
 {
     await mongoose.connect(MONGO_URL);
@@ -46,20 +46,7 @@ app.get("/" , (req,res)=>
 
 
 
-const validateReview = (req,res,next)=>
-{
-let {error} = reviewSchema.validate(req.body);
-         
 
-          if(error)
-          {
-            let errMsg = error.details.map((el)=> el.message).join(",");
-            throw new ExpressError(400, errMsg);
-          }
-          else{
-            next();
-          }
-}
 // app.get("/testListing", async (req,res)=>
 // {
 //     let sampleListing = new Listing({
@@ -75,35 +62,7 @@ let {error} = reviewSchema.validate(req.body);
 // })
 
 app.use("/listings" , listings )
-
-
-//POST review route 
-app.post("/listings/:id/reviews" , validateReview, wrapAsync(async (req,res)=>
-{
-    //let {id}= req.params
-    //let {review} = req.body
-    let listing = await Listing.findById(req.params.id);
-    let newReview = new Review(req.body.review);
-
-    listing.reviews.push(newReview);
-    
-    await newReview.save();
-    await listing.save();
-    
-    console.log("review saved");
-   
-    res.redirect(`/listings/${listing._id}`)
-
-}));
-//DELETE review route
-app.delete("/listings/:id/reviews/:reviewId" , wrapAsync(async (req,res)=>
-{
-    let {id , reviewId} = req.params;
-    await Listing.findByIdAndUpdate(id , {$pull: {reviews : reviewId}}) //pull is used to extract a value that is to be removed
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/listings/${id}`);
-
-}))
+app.use("/listings/:id/reviews" , reviews );
 
 
 app.use((req, res, next) => {
@@ -116,7 +75,6 @@ app.use((err,req,res,next)=>
     // res.status(statusCode).send(message);
    res.status(statusCode).render("error.ejs", { statusCode, message, error: err });
 })
-
 
 
 
