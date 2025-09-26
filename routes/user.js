@@ -47,6 +47,17 @@ router.post("/login",
         res.redirect("/listings");  
     }
 );
-
+router.get("/logout" , (req,res,next)=>
+{
+    req.logOut((err)=>
+    {
+        if(err)
+        {
+            return next(err);
+        }
+        req.flash("success" , "User Logged Out");
+        res.redirect("/")
+    })
+})
 module.exports = router;
 

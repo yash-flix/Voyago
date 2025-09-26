@@ -2,20 +2,37 @@
 
 <style>
   body {
-    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 50%, #dbeafe 100%);
+    /* background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 50%, #dbeafe 100%); */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);;
     min-height: 100vh;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  #globe-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.15;
   }
 
   .form-container {
+    position: relative;
+    z-index: 10;
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .page-header {
@@ -45,7 +62,9 @@
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background: #fafafa;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
   }
 
   .form-control:focus {
@@ -109,6 +128,8 @@
 </style>
 
 <body>
+  <div id="globe-container"></div>
+
   <div class="form-container">
     <h2 class="page-header">Create a New Listing</h2>
     
@@ -116,7 +137,6 @@
       <div class="form-group">
         <label for="title" class="form-label">Property Title</label>
         <input 
-        
           id="title"
           name="listing[title]" 
           placeholder="Enter a catchy title for your property" 
@@ -190,4 +210,55 @@
       <button type="submit" class="submit-btn">Create Listing</button>
     </form>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    let scene, camera, renderer, globe;
+
+    function initGlobe() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(200, 50, 400);
+      
+      const container = document.getElementById('globe-container');
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+      container.appendChild(renderer.domElement);
+      
+      const geometry = new THREE.SphereGeometry(180, 40, 40);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x22d3ee,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.35
+      });
+      
+      globe = new THREE.Mesh(geometry, material);
+      scene.add(globe);
+      
+      animate();
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (globe) {
+        globe.rotation.y += 0.001;
+        globe.rotation.x += 0.0005;
+      }
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('load', function() {
+      setTimeout(initGlobe, 100);
+    });
+
+    window.addEventListener('resize', function() {
+      if (camera && renderer) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+    });
+  </script>
 </body>

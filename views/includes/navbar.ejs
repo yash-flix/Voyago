@@ -1,103 +1,4 @@
-<!-- 
-<nav class="navbar navbar-expand-md navbar-dark voyago-navbar sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-solid fa-mountain-sun"></i>
-      
-      VOYAGO
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link " aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add new Listing</a>
-        <a class="nav-link " href="#" >About Us</a>
-      </div>
-    </div>
-  </div>
-</nav>
 
-<style>
-
-.voyago-navbar {
-  background: linear-gradient(90deg, #00c6ff, #0072ff); /* teal → blue */
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  transition: background 0.4s ease;
-}
-
-
-.voyago-navbar .navbar-brand {
-  font-weight: 800;
-  font-size: 1.6rem;
-  color: #fff !important;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.fa-mountain-sun
-{
-    color:#070e16
-}
-
-.voyago-navbar .navbar-brand img {
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-}
-
-.voyago-navbar .navbar-brand:hover img {
-  transform: scale(1.1) rotate(-3deg);
-}
-
-
-.voyago-navbar .nav-link {
-  color: #f1faff !important;
-  font-weight: 500;
-  margin-left: 1.3rem;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-}
-
-
-.voyago-navbar .nav-link:hover {
-  color: #ffd700 !important; 
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
-}
-
-.voyago-navbar .nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #ffd700;
-  transition: width 0.3s ease;
-}
-
-.voyago-navbar .nav-link:hover::after {
-  width: 100%;
-}
-
-
-.voyago-navbar .nav-link.active {
-  color: #ffd700 !important;
-  font-weight: 600;
-}
-
-
-.voyago-navbar .navbar-toggler {
-  border-color: rgba(255,255,255,0.7);
-}
-
-.voyago-navbar .navbar-toggler-icon {
-  filter: invert(1);
-}
-</style> -->
 <nav class="navbar navbar-expand-md navbar-dark voyago-navbar sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/"><i class="fa-solid fa-mountain-sun"></i>
@@ -112,22 +13,32 @@
         <a class="nav-link active" aria-current="page" href="/">Home</a>
         <a class="nav-link" href="/listings">All Listings</a>
         <a class="nav-link" href="/listings/new">Add new Listing</a>
-        <a class="nav-link" href="/signUp">SignUp</a>
+        <!-- <a class="nav-link" href="/signUp">SignUp</a> -->
+      </div>
+      <div class="navbar-nav ms-auto">
+        <% if(!currUser){ %>
+           <a class="nav-link " aria-current="page" href="/signUp">SignUp</a>
+           <a class="nav-link" href="/login">Login</a>
+          <% }%>
+       <% if(currUser){ %>
+        <a class="nav-link" href="/logout">Logout</a>
+          <% }%>
+       
       </div>
     </div>
   </div>
 </nav>
 
 <style>
-/* 🌿 Minimalist Navbar */
+
 .voyago-navbar {
-  background: #ffffff; /* clean white background */
-  border-bottom: 1px solid rgba(0,0,0,0.08); /* soft divider */
-  box-shadow: 0 1px 6px rgba(0,0,0,0.05); /* subtle shadow */
+  background: #ffffff; 
+  border-bottom: 1px solid rgba(0,0,0,0.08); 
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05); 
   transition: background 0.3s ease;
 }
 
-/* Brand */
+
 .voyago-navbar .navbar-brand {
   font-weight: 700;
   font-size: 1.5rem;
@@ -139,7 +50,7 @@
 }
 
 .voyago-navbar .fa-mountain-sun {
-  color: #0072ff; /* subtle brand accent */
+  color: #0072ff; 
   font-size: 1.3rem;
 }
 
@@ -184,7 +95,7 @@
 }
 
 .voyago-navbar .navbar-toggler-icon {
-  filter: invert(0.2); /* darker for white bg */
+  filter: invert(0.2);
 }
 </style>
 
