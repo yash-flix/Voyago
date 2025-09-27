@@ -76,9 +76,6 @@ main()
 });
 
 
-
-
-
 app.get("/", (req, res) => {
     res.render("listings/home.ejs");
 });
