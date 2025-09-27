@@ -36,8 +36,15 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref:"Review"
         
-    } ]
+    } ] , 
+    owner : 
+    {
+        type:Schema.Types.ObjectId,
+        ref:"User" ,
+        required:true , 
+    }
 })
+
 //middleware for deleting reviews when listing is deleted 
 listingSchema.post("findOneAndDelete" , async(listing)=>
 {
