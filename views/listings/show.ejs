@@ -638,6 +638,7 @@
       </div> 
     </div>
     <hr>
+    <% if (currUser) {%>
  <div class="review-form">
   <h4>Leave a Review</h4>
   <form action="/listings/<%=listing.id%>/reviews" method="POST" novalidate class="needs-validation">
@@ -653,13 +654,14 @@
     <button type="submit">Add Review</button>
   </form>
 </div>
+    <% } %>
 <div class="reviews-section">
   <h4 class="reviews-header">All Reviews</h4>
   
   <% if (listing.reviews && listing.reviews.length > 0) { %>
     <ul class="reviews-list">
       <% for(review of listing.reviews) { %>
-        <li class="review-item"><h5>Jan Doe</h5>
+        <li class="review-item"><h5>@<%= review.author.username %></h5>
           <div class="review-content"><%=review.comment %></div>
           <div class="review-rating">
             <span class="rating-stars">
@@ -681,6 +683,7 @@
     </div>
   <% } %>
 </div>
+
 
 
   </div>
