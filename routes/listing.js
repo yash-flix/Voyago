@@ -30,20 +30,20 @@ router.get("/new", isLoggedIn, (req, res) => {
     res.render("listings/new.ejs");
 });
 
-// Show route
-router.get("/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id)
-    .populate({path: "reviews",populate: {path: "author"}})
-    .populate("owner")
-    
-    if (!listing) {
-        req.flash("error", "Requested Listing does not exist");
-        return res.redirect("/listings"); 
-    }
-    
-    res.render("listings/show.ejs", { listing });
-}));
+    // Show route
+    router.get("/:id", wrapAsync(async (req, res) => {
+        let { id } = req.params;
+        const listing = await Listing.findById(id)
+        .populate({path: "reviews",populate: {path: "author"}})
+        .populate("owner")
+        
+        if (!listing) {
+            req.flash("error", "Requested Listing does not exist");
+            return res.redirect("/listings"); 
+        }
+        
+        res.render("listings/show.ejs", { listing });
+    }));
 
 // Create route
 router.post("/", isLoggedIn,   validateListing, wrapAsync(async (req, res) => {
