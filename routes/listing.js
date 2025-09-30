@@ -97,8 +97,7 @@ router.put("/:id",
         let { id } = req.params;
         let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
         
-       
-        if (req.file) {
+        if (typeof req.file!= "undefined") {
             listing.image = {
                 url: req.file.path,
                 filename: req.file.filename

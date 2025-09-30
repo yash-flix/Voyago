@@ -87,6 +87,30 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
+  .image-preview {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 1.5rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.image-preview:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+  transition: all 0.3s ease;
+}
 
   @media (max-width: 768px) {
     .form-container {
@@ -108,7 +132,7 @@
   <div class="form-container">
     <h2 class="page-header">Edit Listing</h2>
     
-    <form method="POST" action="/listings/<%= listing._id%>?_method=PUT" novalidate class="needs-validation">
+    <form method="POST" action="/listings/<%= listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
       <div class="form-group">
         <label for="title" class="form-label">Property Title</label>
         <input 
@@ -130,17 +154,22 @@
           required><%= listing.description %></textarea>
           <div class="invalid-feedback">Please enter a short description</div>
       </div>
+      <div class="form-group">
+  <label for="current-image" class="form-label">Current Image</label>
+  <div class="image-preview">
+    <img src="<%= listing.image.url%>" alt="Current listing image">
+  </div>
+</div>
 
       <div class="form-group">
-        <label for="image" class="form-label">Image URL</label>
+        <label for="image" class="form-label">New Image (Optional)</label>
         <input 
           id="image"
           name="listing[image]" 
-          value="<%= listing.image %>"
-          type="url" 
+          type="file" 
           class="form-control"
-          required>
-          <div class="invalid-feedback">Image required</div>
+          >
+          
       </div>
 
       <div class="form-group">
