@@ -1,139 +1,157 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<style>
-  body {
-    /* background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 50%, #dbeafe 100%); */
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);;
-    min-height: 100vh;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    overflow-x: hidden;
-  }
 
-  #globe-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.15;
-  }
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      min-height: 100vh;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
 
-  .form-container {
-    position: relative;
-    z-index: 10;
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
+    #globe-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.15;
+    }
 
-  .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #1f2937;
-    font-size: 2rem;
-    font-weight: 700;
-  }
-
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-
-  .form-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #374151;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-
-  .form-control {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    box-sizing: border-box;
-  }
-
-  .form-control:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    background: white;
-  }
-
-  .form-control::placeholder {
-    color: #9ca3af;
-    font-weight: 400;
-  }
-
-  textarea.form-control {
-    min-height: 100px;
-    resize: vertical;
-    font-family: inherit;
-  }
-
-  .submit-btn {
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    color: white;
-    padding: 0.875rem 2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  .submit-btn:hover {
-    background: linear-gradient(135deg, #2563eb, #1e40af);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  @media (max-width: 768px) {
     .form-container {
-      margin: 1rem;
-      padding: 1.5rem;
+      position: relative;
+      z-index: 10;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .page-header {
-      font-size: 1.75rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #1f2937;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #374151;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: white;
+    }
+
+    .form-control::placeholder {
+      color: #9ca3af;
+      font-weight: 400;
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      padding: 0.875rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 
     .form-row {
-      grid-template-columns: 1fr;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
-  }
-</style>
 
+    .valid-feedback,
+    .invalid-feedback {
+      display: none;
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .valid-feedback {
+      color: #10b981;
+    }
+
+    .invalid-feedback {
+      color: #ef4444;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .page-header {
+        font-size: 1.75rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
 <body>
   <div id="globe-container"></div>
 
   <div class="form-container">
     <h2 class="page-header">Create a New Listing</h2>
     
-    <form method="POST" action="/listings" novalidate class="needs-validation">
+    <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
       <div class="form-group">
         <label for="title" class="form-label">Property Title</label>
         <input 
@@ -143,7 +161,7 @@
           type="text" 
           class="form-control"
           required>
-          <div class="valid-feedback">Title looks good!</div>
+        <div class="valid-feedback">Title looks good!</div>
       </div>
 
       <div class="form-group">
@@ -154,16 +172,16 @@
           placeholder="Describe your property, amenities, and what makes it special..." 
           class="form-control"
           required></textarea>
-           <div class="invalid-feedback">Please enter a short description</div>
+        <div class="invalid-feedback">Please enter a short description</div>
       </div>
 
+
       <div class="form-group">
-        <label for="image" class="form-label">Image URL</label>
+        <label for="image" class="form-label">Upload Image</label>
         <input 
           id="image"
           name="listing[image]" 
-          placeholder="https://example.com/your-image.jpg" 
-          type="url" 
+          type="file" 
           class="form-control"
           required>
       </div>
@@ -177,8 +195,9 @@
           type="number"
           min="1"
           class="form-control"
+          value="2000"
           required>
-           <div class="invalid-feedback">Price should be valid</div>
+        <div class="invalid-feedback">Price should be valid</div>
       </div>
 
       <div class="form-row">
@@ -190,8 +209,9 @@
             placeholder="City, State" 
             type="text"
             class="form-control"
+            value="City, State"
             required>
-            <div class="invalid-feedback">Location should be valid</div>
+          <div class="invalid-feedback">Location should be valid</div>
         </div>
 
         <div class="form-group">
@@ -202,8 +222,9 @@
             placeholder="Country name" 
             type="text"
             class="form-control"
+            value="Country name"
             required>
-            <div class="invalid-feedback">Country name should be valid</div>
+          <div class="invalid-feedback">Country name should be valid</div>
         </div>
       </div>
 
@@ -262,3 +283,4 @@
     });
   </script>
 </body>
+</html>
