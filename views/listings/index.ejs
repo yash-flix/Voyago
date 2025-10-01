@@ -9,6 +9,10 @@
     font-weight: 400;
     overflow-x: hidden;
   }
+  .ilters
+  {
+    margin-top:1rem;
+  }
 
   #globe-container {
     position: fixed;
@@ -192,7 +196,7 @@
         </mask>
       </defs>
       <rect width="100%" height="100%" fill="url(#gridPattern)" mask="url(#gridMask)" transform="skewY(8)"/>
-      <!-- Highlighted blocks -->
+     
       <rect x="64" y="64" width="64" height="64" fill="rgba(255,255,255,0.03)" class="grid-block" transform="skewY(8)"/>
       <rect x="128" y="192" width="64" height="64" fill="rgba(255,255,255,0.03)" class="grid-block" transform="skewY(8)"/>
       <rect x="192" y="128" width="64" height="64" fill="rgba(255,255,255,0.03)" class="grid-block" transform="skewY(8)"/>
@@ -202,11 +206,20 @@
     </svg>
   </div>
 
-  <!-- Content Wrapper -->
   <div class="content-wrapper">
-    <h1 class="page-header">All Listings</h1>
+    <!-- <h1 class="page-header">All Listings</h1> -->
+     <div id="filters">
+      <div class="filter">
 
-    <div class="listings-container">
+        <i class="fa-solid fa-fire"></i><p>Trending</p>
+      </div>
+       <div class="filter">
+
+        <i class="fa-solid fa-fire"></i><p>Rooms</p>
+      </div>
+     </div>
+
+    <div class="listings-container mt-3">
       <% for(let listing of allListings) { %>
         <a href="/listings/<%= listing._id %>" class="listing-link">
           <div class="listing-card">

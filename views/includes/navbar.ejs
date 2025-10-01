@@ -1,101 +1,485 @@
-
 <nav class="navbar navbar-expand-md navbar-dark voyago-navbar sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-solid fa-mountain-sun"></i>
-      VOYAGO
+    <a class="navbar-brand" href="/">
+      <div class="brand-icon-wrapper">
+        <i class="fa-solid fa-mountain-sun"></i>
+      </div>
+      <span class="brand-text">VOYAGO</span>
+      
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add new Listing</a>
-        
+      <div class="navbar-nav ms-auto align-items-center">
+        <a class="nav-link " aria-current="page" href="/">
+          <div class="link-content">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+          </div>
+        </a>
+        <a class="nav-link" href="/listings">
+          <div class="link-content">
+            <i class="fa-solid fa-compass"></i>
+            <span>Explore</span>
+          </div>
+        </a>
+        <a class="nav-link" href="/listings/new">
+          <div class="link-content">
+            <i class="fa-solid fa-circle-plus"></i>
+            <span>Add Listing</span>
+          </div>
+        </a>
       </div>
-      <div class="navbar-nav ms-auto">
+      <div class="navbar-nav ms-auto auth-section align-items-center">
         <% if(!currUser){ %>
-           <a class="nav-link " aria-current="page" href="/signUp">SignUp</a>
-           <a class="nav-link" href="/login">Login</a>
-          <% }%>
-       <% if(currUser){ %>
-        <a class="nav-link" href="/logout">Logout</a>
-          <% }%>
-       
+           <a class="nav-link btn-auth btn-signup" href="/signUp">
+             <span>Sign Up</span>
+             <i class="fa-solid fa-arrow-right"></i>
+           </a>
+           <a class="nav-link btn-auth btn-login" href="/login">
+             <span>Login</span>
+           </a>
+        <% } %>
+        <% if(currUser){ %>
+          <div class="user-badge">
+            <i class="fa-solid fa-user-circle"></i>
+          </div>
+          <a class="nav-link btn-auth btn-logout" href="/logout">
+            <span>Logout</span>
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </a>
+        <% } %>
       </div>
     </div>
   </div>
 </nav>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
 
 .voyago-navbar {
-  background: #ffffff; 
-  border-bottom: 1px solid rgba(0,0,0,0.08); 
-  box-shadow: 0 1px 6px rgba(0,0,0,0.05); 
-  transition: background 0.3s ease;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+  position: relative;
+  border-bottom: none;
+  box-shadow: 0 8px 32px rgba(30, 60, 114, 0.4);
+  padding: 0.5rem 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
+/* Animated background effect */
+.voyago-navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.05), 
+    transparent
+  );
+  animation: shimmer 8s infinite;
+}
 
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.voyago-navbar.scrolled {
+  padding: 0.3rem 0;
+  background: linear-gradient(135deg, #152a4d 0%, #1e3c72 50%, #5b18a3 100%);
+  box-shadow: 0 12px 40px rgba(30, 60, 114, 0.6);
+}
+
+/* Brand Styling */
 .voyago-navbar .navbar-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: #222 !important;
   display: flex;
   align-items: center;
-  gap: 6px;
-  letter-spacing: 0.5px;
+  gap: 12px;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: transform 0.3s ease;
 }
 
-.voyago-navbar .fa-mountain-sun {
-  color: #0072ff; 
-  font-size: 1.3rem;
+.voyago-navbar .navbar-brand:hover {
+  transform: translateX(5px);
+}
+
+.brand-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 153, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.brand-icon-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  animation: iconShine 3s infinite;
+}
+
+@keyframes iconShine {
+  0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.voyago-navbar .navbar-brand:hover .brand-icon-wrapper {
+  transform: rotate(-10deg) scale(1.1);
+  box-shadow: 0 12px 32px rgba(0, 153, 255, 0.6);
+}
+
+.brand-icon-wrapper .fa-mountain-sun {
+  color: #fff;
+  font-size: 1.5rem;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.brand-text {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+  position: relative;
+}
+
+.brand-tagline {
+  position: absolute;
+  bottom: -18px;
+  left: 62px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 /* Nav Links */
 .voyago-navbar .nav-link {
-  color: #444 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   font-weight: 500;
-  margin-left: 1.2rem;
+  font-size: 0.95rem;
+  margin: 0 0.3rem;
+  padding: 0 !important;
   position: relative;
-  transition: color 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Minimal hover: underline grows in */
-.voyago-navbar .nav-link::after {
-  content: "";
+.link-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.65rem 1.2rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.link-content::before {
+  content: '';
   position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #0072ff;
-  transition: width 0.25s ease;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.voyago-navbar .nav-link:hover .link-content::before {
+  width: 300px;
+  height: 300px;
+}
+
+.voyago-navbar .nav-link i {
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.voyago-navbar .nav-link span {
+  z-index: 1;
 }
 
 .voyago-navbar .nav-link:hover {
-  color: #0072ff !important;
+  color: #fff !important;
+  transform: translateY(-3px);
 }
 
-.voyago-navbar .nav-link:hover::after {
-  width: 100%;
+.voyago-navbar .nav-link:hover .link-content {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+}
+
+.voyago-navbar .nav-link:hover i {
+  transform: scale(1.2) rotate(5deg);
 }
 
 /* Active link */
+.voyago-navbar .nav-link.active .link-content {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(0, 153, 255, 0.3));
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+}
+
 .voyago-navbar .nav-link.active {
-  color: #0072ff !important;
+  color: #fff !important;
   font-weight: 600;
+}
+
+/* Auth Section */
+.auth-section {
+  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.user-badge {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #00d4ff, #0099ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 153, 255, 0.4);
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 4px 16px rgba(0, 153, 255, 0.4); }
+  50% { box-shadow: 0 4px 24px rgba(0, 212, 255, 0.6); }
+}
+
+.user-badge i {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.btn-auth {
+  font-weight: 600;
+  padding: 0 !important;
+  margin: 0 0.3rem !important;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-auth span,
+.btn-auth i {
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.btn-signup .link-content {
+  background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+  border: none;
+  padding: 0.7rem 1.8rem;
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  font-weight: 600;
+}
+
+.btn-signup:hover .link-content {
+  background: linear-gradient(135deg, #00e5ff 0%, #00aaff 100%);
+  box-shadow: 0 8px 28px rgba(0, 212, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-signup i {
+  transition: transform 0.3s ease;
+}
+
+.btn-signup:hover i {
+  transform: translateX(5px);
+}
+
+.btn-login .link-content {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  padding: 0.65rem 1.8rem;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover .link-content {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-logout .link-content {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.65rem 1.5rem;
+}
+
+.btn-logout:hover .link-content {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Mobile toggler */
 .voyago-navbar .navbar-toggler {
-  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.voyago-navbar .navbar-toggler:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+.voyago-navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 212, 255, 0.3);
 }
 
 .voyago-navbar .navbar-toggler-icon {
-  filter: invert(0.2);
+  filter: brightness(0) invert(1);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .brand-tagline {
+    display: none;
+  }
+  
+  .voyago-navbar .navbar-nav {
+    padding: 1.5rem 0;
+  }
+  
+  .voyago-navbar .nav-link {
+    margin: 0.4rem 0;
+  }
+  
+  .link-content {
+    justify-content: center;
+  }
+  
+  .auth-section {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-left: 0;
+    padding-left: 0;
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  
+  .user-badge {
+    align-self: center;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .brand-text {
+    font-size: 1.4rem;
+  }
+  
+  .brand-icon-wrapper {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .brand-icon-wrapper .fa-mountain-sun {
+    font-size: 1.2rem;
+  }
 }
 </style>
 
+<script>
+// Scroll effect
+window.addEventListener('scroll', function() {
+  const navbar = document.querySelector('.voyago-navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// Add ripple effect on click
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+    
+    this.appendChild(ripple);
+    
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+</script>
+
+<style>
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple-animation 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+</style>
